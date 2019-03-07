@@ -4,8 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "AIController.h"
-#include "Tank.h"
 #include "TankAIController.generated.h"
+
+// Forward Declarations
+class ATank;
 
 /**
  * 
@@ -15,8 +17,14 @@ class BATTLETANK_API ATankAIController : public AAIController
 {
 	GENERATED_BODY()
 	
+public:
+	ATankAIController();
+
 protected:
 	void BeginPlay() override;
+
+public:
+	void Tick(float DeltaTime);
 
 private:
 	ATank* GetControlledTank() const;

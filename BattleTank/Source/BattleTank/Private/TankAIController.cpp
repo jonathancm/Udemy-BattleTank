@@ -2,7 +2,13 @@
 
 #include "TankAIController.h"
 #include "Engine/World.h"
+#include "Tank.h"
 
+
+ATankAIController::ATankAIController()
+{
+	PrimaryActorTick.bCanEverTick = true;
+}
 
 void ATankAIController::BeginPlay()
 {
@@ -27,6 +33,19 @@ void ATankAIController::BeginPlay()
 	else
 	{
 		UE_LOG(LogTemp, Warning, TEXT("AI could not target player"), *PlayerTank->GetName())
+	}
+}
+
+void ATankAIController::Tick(float DeltaTime)
+{
+	Super::Tick(DeltaTime);
+	if (GetPlayerTank())
+	{
+		// TODO Move towards player
+
+		GetControlledTank()->AimAt(GetPlayerTank()->GetActorLocation());
+
+		// Fire if ready
 	}
 }
 
