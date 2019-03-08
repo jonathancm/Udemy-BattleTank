@@ -7,6 +7,7 @@
 #include "TankAimingComponent.generated.h"
 
  // Forward Declaration
+class UTankTurret;
 class UTankBarrel;
 
 // Holds barrel's properties
@@ -15,8 +16,8 @@ class BATTLETANK_API UTankAimingComponent : public UActorComponent
 {
 	GENERATED_BODY()
 
-public:	
-	// Sets default values for this component's properties
+public:
+	// Sets default values for this pawn's properties
 	UTankAimingComponent();
 
 protected:
@@ -24,13 +25,13 @@ protected:
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
-
 	void AimAt(FVector WorldSpaceLocation, float LaunchSpeed);
-	void SetBarrelReference(UTankBarrel* BarrelToSet);
 	void MoveBarrelTowards(FVector AimDirection);
+	
+	void SetBarrelReference(UTankBarrel* BarrelToSet);
+	void SetTurretReference(UTankTurret* TurretToSet);
 	
 private:
 	UTankBarrel* Barrel = nullptr;
+	UTankTurret* Turret = nullptr;
 };

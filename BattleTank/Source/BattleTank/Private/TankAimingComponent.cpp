@@ -5,6 +5,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Kismet/GameplayStatics.h"
 #include "TankBarrel.h"
+#include "TankTurret.h"
 
 
 
@@ -23,6 +24,10 @@ void UTankAimingComponent::SetBarrelReference(UTankBarrel* BarrelToSet)
 	Barrel = BarrelToSet;
 }
 
+void UTankAimingComponent::SetTurretReference(UTankTurret* TurretToSet)
+{
+	Turret = TurretToSet;
+}
 
 // Called when the game starts
 void UTankAimingComponent::BeginPlay()
@@ -31,14 +36,6 @@ void UTankAimingComponent::BeginPlay()
 
 	// ...
 	
-}
-
-
-// Called every frame
-void UTankAimingComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
-{
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
 }
 
 void UTankAimingComponent::AimAt(FVector WorldSpaceLocation, float LaunchSpeed)
@@ -76,6 +73,6 @@ void UTankAimingComponent::MoveBarrelTowards(FVector AimDirection)
 	FRotator AimRotator = AimDirection.Rotation();
 	FRotator DeltaRotator = AimRotator - BarrelRotator;
 	
-	// Rotate turret gimbal lock, amount this frame given max azimuth speed
+	Turret->Rotate(DeltaRotator.Yaw);
 	Barrel->Elevate(DeltaRotator.Pitch);
 }
