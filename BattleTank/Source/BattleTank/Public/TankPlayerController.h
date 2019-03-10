@@ -6,9 +6,6 @@
 #include "GameFramework/PlayerController.h"
 #include "TankPlayerController.generated.h"
 
-// Forward Declaration
-class ATank;
-
 /**
  * 
  */
@@ -16,7 +13,7 @@ UCLASS()
 class BATTLETANK_API ATankPlayerController : public APlayerController
 {
 	GENERATED_BODY()
-	
+
 public:
 	// Sets default values for this pawn's properties
 	ATankPlayerController();
@@ -25,22 +22,23 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
+	UFUNCTION(BlueprintImplementableEvent, Category = "Setup")
+	void FoundAimingComponent(UTankAimingComponent* AimingComponent);
+
 public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
 private:
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float CrossHairXLocation = 0.5f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float CrossHairYLocation = 0.33333f;
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000.0f;
 
-
-	ATank* GetControlledTank() const;
 	void AimTowardsCrosshair();
 	bool GetSightRayHitLocation(FVector &OutHitLocation) const;
 	void GetLookDirection(FVector2D ScreenLocation, FVector& OutLookDirection) const;

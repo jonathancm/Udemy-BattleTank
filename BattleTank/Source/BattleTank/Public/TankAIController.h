@@ -6,9 +6,6 @@
 #include "AIController.h"
 #include "TankAIController.generated.h"
 
-// Forward Declarations
-class ATank;
-
 /**
  * 
  */
@@ -24,9 +21,9 @@ protected:
 	void BeginPlay() override;
 
 public:
-	void Tick(float DeltaTime);
+	void Tick(float DeltaTime) override;
 
-private:
-	ATank* GetControlledTank() const;
-	ATank* GetPlayerTank() const;
+	// How close the AI can get to the player
+	float AcceptanceRadius = 3000.0f;
+
 };
