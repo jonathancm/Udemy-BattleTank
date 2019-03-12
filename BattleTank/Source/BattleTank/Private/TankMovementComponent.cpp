@@ -21,12 +21,11 @@ void UTankMovementComponent::IntendAccelerate(float Throw)
 	if (!ensure(LeftTrack && RightTrack))
 		return;
 
-	Throw = FMath::Clamp(Throw, -1.0f, +1.0f);
+	if (FMath::Abs(Throw) < 0.01f)
+		return;
 
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(Throw);
-
-	// TODO prevent double-speed due to both control schemes
 }
 
 void UTankMovementComponent::IntendTurn(float Throw)
@@ -34,7 +33,8 @@ void UTankMovementComponent::IntendTurn(float Throw)
 	if (!ensure(LeftTrack && RightTrack))
 		return;
 
-	Throw = FMath::Clamp(Throw, -1.0f, +1.0f);
+	if (FMath::Abs(Throw) < 0.01f)
+		return;
 
 	LeftTrack->SetThrottle(Throw);
 	RightTrack->SetThrottle(-Throw);

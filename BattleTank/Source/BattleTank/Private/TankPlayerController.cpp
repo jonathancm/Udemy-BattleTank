@@ -31,6 +31,10 @@ void ATankPlayerController::AimTowardsCrosshair()
 {
 	FVector HitLocation;
 
+	// To allow de-possess in editor
+	if (!GetPawn())
+		return;
+
 	auto AimingComponent = GetPawn()->FindComponentByClass<UTankAimingComponent>();
 	if (!ensure(AimingComponent))
 		return;
@@ -52,7 +56,10 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation) cons
 
 	// "De-project" the screen position of the crosshair to a world direction
 	FVector LookDirection;
-	GetLookDirection(ScreenLocation, LookDirection);
+	if (!GetLookDirection(ScreenLocation, LookDirection))
+	{
+		return false;
+	}
 	
 	// Line-trace along that look direction
 	FVector HitLocation;
@@ -65,10 +72,10 @@ bool ATankPlayerController::GetSightRayHitLocation(FVector &OutHitLocation) cons
 	return false;
 }
 
-void ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& OutLookDirection) const
+bool ATankPlayerController::GetLookDirection(FVector2D ScreenLocation, FVector& OutLookDirection) const
 {
 	FVector CameraWorldLocation;
-	DeprojectScreenPositionToWorld(
+	return DeprojectScreenPositionToWorld(
 		ScreenLocation.X,
 		ScreenLocation.Y,
 		CameraWorldLocation,
