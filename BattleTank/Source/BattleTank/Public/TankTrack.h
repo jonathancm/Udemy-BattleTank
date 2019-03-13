@@ -14,18 +14,14 @@ class BATTLETANK_API UTankTrack : public UStaticMeshComponent
 {
 	GENERATED_BODY()
 
+public:
 	UTankTrack();
-
-public:
 	void BeginPlay() override;
-
 	void ApplySidewaysForce();
+	void DriveTrack();
 
-public:
 	UFUNCTION(BlueprintCallable, Category = "Input")
 	void SetThrottle(float Throttle);
-
-	void DriveTrack();
 	
 	// Max force per track in Newtons
 	UPROPERTY(EditDefaultsOnly, Category = "Movement")

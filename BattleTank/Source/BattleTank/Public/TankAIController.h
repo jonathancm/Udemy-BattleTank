@@ -22,9 +22,14 @@ protected:
 	void BeginPlay() override;
 
 private:
+	bool isAlive = true;
 
 	// How close the AI can get to the player
 	UPROPERTY(EditDefaultsOnly, Category = "Setup")
 	float AcceptanceRadius = 8000.0f;
 
+	void SetPawn(APawn* InPawn) override;
+
+	UFUNCTION()
+	void OnPossessedTankDeath();
 };

@@ -30,6 +30,8 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 private:
+	bool isAlive = true;
+
 	UPROPERTY(EditDefaultsOnly)
 	float CrossHairXLocation = 0.5f;
 
@@ -39,6 +41,10 @@ private:
 	UPROPERTY(EditDefaultsOnly)
 	float LineTraceRange = 1000000.0f;
 
+	UFUNCTION()
+	void OnPossessedTankDeath();
+
+	void SetPawn(APawn* InPawn) override;
 	void AimTowardsCrosshair();
 	bool GetSightRayHitLocation(FVector &OutHitLocation) const;
 	bool GetLookDirection(FVector2D ScreenLocation, FVector& OutLookDirection) const;
