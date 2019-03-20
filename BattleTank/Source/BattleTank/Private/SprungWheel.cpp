@@ -58,11 +58,6 @@ void ASprungWheel::Tick(float DeltaTime)
 	if (GetWorld()->TickGroup == TG_PostPhysics)
 	{
 		TotalForceMagnitudeThisFrame = 0;
-		UE_LOG(LogTemp, Warning, TEXT("Post physics"));
-	}
-	else
-	{
-		UE_LOG(LogTemp, Warning, TEXT("NOT Post physics"));
 	}
 }
 
